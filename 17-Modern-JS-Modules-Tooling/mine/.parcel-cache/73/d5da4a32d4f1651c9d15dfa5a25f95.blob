@@ -1,0 +1,17 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "addToWishlist", function () {
+  return addToWishlist;
+});
+_parcelHelpers.export(exports, "quantity", function () {
+  return quantity;
+});
+// Exporting module
+console.log('******Exporting Module******');
+let wishlist = [];
+let quantity = 0;
+const addToWishlist = function (product, qty) {
+  wishlist.push(product);
+  quantity += qty;
+  console.log(`Wishlist :: ${qty} ${product} added to the Wish list.`);
+};

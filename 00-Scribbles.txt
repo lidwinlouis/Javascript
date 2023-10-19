@@ -1,0 +1,19 @@
+1) For Live Server we have two options.
+
+	a) Installing Live Server Node Package
+
+		npm install live-server -g
+		
+		>live-server
+
+	b) Alternate way is to use the Live Server extension in VSCode
+	
+2) 	console.table()	- 	A better way of displaying objects in console.
+	Arrays.shift	- 	For Removing element from the first position
+	Arrays.unshift	-	For adding element to the first position
+	Arrays.sort((a,b) => a-b )
+	Arrays.concat()	- 	Merge arrays.
+	
+3) Using 'debugger;' in the code to get the break point stop execution at the required point.
+
+4) 

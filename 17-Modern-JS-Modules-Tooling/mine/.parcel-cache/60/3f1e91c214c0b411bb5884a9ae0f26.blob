@@ -1,0 +1,14 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+// Address Module - Exporting using default export.
+let address = [];
+exports.default = function (name, addressline, city, state) {
+  let address1 = {
+    name: name,
+    address: addressline,
+    city: city,
+    state: state
+  };
+  address.push(address1);
+  console.log('AddressBook :: Address added : ', address);
+};

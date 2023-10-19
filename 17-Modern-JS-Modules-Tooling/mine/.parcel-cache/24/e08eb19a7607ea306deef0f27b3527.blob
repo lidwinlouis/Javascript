@@ -1,0 +1,82 @@
+var _shoppingCartJs = require('./shoppingCart.js');
+var _wishListJs = require('./wishList.js');
+var _addressBookJs = require('./addressBook.js');
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+var _addressBookJsDefault = _parcelHelpers.interopDefault(_addressBookJs);
+var _node_modulesLodashEsCloneDeepJs = require('./node_modules/lodash-es/cloneDeep.js');
+var _node_modulesLodashEsCloneDeepJsDefault = _parcelHelpers.interopDefault(_node_modulesLodashEsCloneDeepJs);
+console.log('******Importing Module******');
+_shoppingCartJs.addToCart('bread', 5, 30);
+console.log(`Shopping Cart :: Shipping charge : ${_shoppingCartJs.shippingCharge}`);
+console.log(`Shopping Cart :: Order Total : ${_shoppingCartJs.totalPrice}`);
+_wishListJs.addToWishlist('croissant', 10);
+console.log(`Wishlist :: Quantity in my wishlist : ${_wishListJs.quantity}`);
+_addressBookJsDefault.default('Lidwin Lewis', 'Thathenkery House', 'Cochin', 'Kerala');
+// Module pattern - that was used before ES6 modules
+// This sample uses an IIFE, normal functions can also be used.
+// This IEFE was executed only once and return values are assigned to a vairable , shoppingCart2.
+// But we ar still able execute the methods, addTOcart which refers to private variables like shippingcost becasuse of CLOSURE property
+// This pattern has limitations when compared to native modules in ES6, like creating multiple JS files for each module,
+// Then link them in HTML , taking care of the order in which import is done.
+// All variables will be htere in the Global scope and bundling will not be possible .
+const shoppingCart2 = (function () {
+  const shippingCost = 10;
+  const order = [];
+  let quantity = 0;
+  let orderTotal = 0.0;
+  const addToCart = function (product, qty, basePrice) {
+    order.push(product);
+    quantity += qty;
+    orderTotal = orderTotal + basePrice * qty + shippingCost;
+    console.log(orderTotal);
+    console.log(`Shopping Cart 2 :: ${qty} ${product} added to the cart. Order total : ${orderTotal}`);
+  };
+  return {
+    order,
+    orderTotal,
+    addToCart,
+    quantity
+  };
+})();
+shoppingCart2.addToCart('Ricebran oil', 2, 120);
+shoppingCart2.addToCart('Atta', 1, 360);
+// Reflecting the lates state of the order array, may be because of reference.
+console.log(shoppingCart2.order);
+// Not reflecting the variables latest values, but te assigned value of 0
+console.log(shoppingCart2.orderTotal);
+console.log('******Using external modules******');
+// Javascript cloning leaves the references in the clone which will mutate the new object when the source is updated.
+const state = {
+  cart: [{
+    product: 'apples',
+    quantity: 10
+  }, {
+    product: 'coconut',
+    quantity: 4
+  }],
+  user: {
+    id: 1001,
+    loggedIn: true
+  }
+};
+console.log(`Original Object loggedIn : `, state.user.loggedIn);
+// Cloning using plain javascript
+const firstClone = Object.assign({}, state);
+// Using Lodash deepClone()
+const deepCloneObject = _node_modulesLodashEsCloneDeepJsDefault.default(state);
+// When the source , state, is updated, the already cloned destination object also gets modified
+state.user.loggedIn = false;
+console.log(`Javascript Clone : `, firstClone.user.loggedIn);
+console.log(`Lodash Clone  : `, deepCloneObject.user.loggedIn);
+// THis is for Hot code replace without having to reload the page. Specific to parcel package
+if (module.hot) {
+  module.hot.accept();
+}
+class Person {
+  greetings = 'Hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.greetings} ${this.name} `);
+  }
+}
+const me = new Person('Jonas');
